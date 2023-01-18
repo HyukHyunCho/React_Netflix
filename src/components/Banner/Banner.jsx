@@ -3,17 +3,17 @@ import requests from '../../api/requests';
 import styled from 'styled-components';
 import { useQuery } from "@tanstack/react-query";
 import { MovieData, MovieDetailData } from "../../api/axios";
+import Spinner from '../Spinner/Spinner';
 
-export default function Banner() {
-
+export default function Banner({ movieClick }) {
   const [isClicked, setIsClicked] = useState(false);
-
   const {
     data: movieNowData,
     isLoading: isLoadingMovie,
     error: errorMovie,
-  } = useQuery(["movieData"], () => MovieData(requests.fetchNowPlaying));
-
+  } = useQuery(["movieData"], () => MovieData(requests.fetchNowPlaying), {
+    retry: 0,
+  });
 
   const {
     data: movie,
@@ -21,17 +21,12 @@ export default function Banner() {
     error: errorDetail,
   } = useQuery(["movieDetailData"], () => MovieDetailData(movieNowData), {
     enabled: !!movieNowData,
+    retry: 0,
   });
-
-  if (isLoadingMovie) return <div>로딩..</div>;
-  if (errorMovie) return <div>에러</div>;
-
-  if (isLoadingDetail) return <div>로딩..</div>;
-  if (errorDetail) return <div>에러</div>;
   
-  // const truncate = (str, n) => {
-  //   return str?.length > n ? str.substr(0, n - 1) + "..." : str;
-  // };
+  if (isLoadingMovie || isLoadingDetail) return <Spinner />;
+  if (errorMovie) return <div>에러</div>;
+  if (errorDetail) return <div>에러</div>;
 
   if (!isClicked) {
     return (
@@ -49,34 +44,11 @@ export default function Banner() {
             >
               ▶ 재생
             </Button>
-            <Button
-              color="white"
-              //onClick={() => setIsClicked(true)}
-            >
+            <Button color="white" onClick={() => movieClick(movie)}>
               상세 정보
             </Button>
           </BannerButton>
         </BannerContent>
-
-        {/* <div className="banner_contents">
-          <h1 className="banner_title">
-            {movie.title || movie.name || movie.original_name}
-          </h1>
-          <div className="banner_buttons">
-            <button
-              className="banner_button play"
-              onClick={() => setIsClicked(true)}
-            >
-              ▶ 재생
-            </button>
-            <button className="banner_button info">More Information</button>
-          </div>
-
-          <h1 className="banner_description">
-            {truncate(movie.overview, 100)}
-          </h1>
-        </div>
-        <div className="banner--fadeBottom" /> */}
       </Headers>
     );
   } else {
@@ -97,27 +69,30 @@ export default function Banner() {
     );
   }
 }
- 
+
 const Headers = styled.header`
-  background-image: url(https://image.tmdb.org/t/p/original/${props =>props.path});
+  background: linear-gradient(
+      to bottom,
+      rgba(20, 20, 20, 0) 50%,
+      rgba(20, 20, 20, 0.3) 70%,
+      rgba(20, 20, 20, 1) 100%
+    ),
+    url(https://image.tmdb.org/t/p/original/${props => props.path});
   background-position: top center;
   background-size: cover;
 `;
-
 const BannerContent = styled.div`
   width: 100%;
-  height: 470px;
-
-`
+  height: 700px;
+`;
 const BannerTitle = styled.div`
   font-size: 3rem;
   font-weight: 800;
   color: #fff;
-  padding-top: 100px;
+  padding-top: 170px;
   padding-left: 50px;
   padding-bottom: 0.5rem;
 `;
-
 const Banneroverview = styled.div`
   width: 30vw;
   font-size: 1rem;
@@ -130,18 +105,17 @@ const Banneroverview = styled.div`
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
-
 const BannerButton = styled.div`
   margin-left: 30px;
-`
+`;
 const Button = styled.button`
-  width: 120px;
-  height: 40px;
+  min-width: 65px;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 1vw;
   font-weight: bold;
   cursor: pointer;
   border: none;
+  padding: 15px;
   margin-top: 30px;
   margin-left: 10px;
   color: ${props => props.color};
@@ -151,7 +125,6 @@ const Button = styled.button`
       props.background === "white" ? "rgba(255, 255, 255, 0.7)" : "rgba(109, 109, 110, 0.5)"};
   }
 `;
-
 const Iframe = styled.iframe`
   width: 100%;
   height: 100%;
@@ -166,8 +139,7 @@ const Iframe = styled.iframe`
     width: 100%;
     heightL 100%;
   }
-`
-
+`;
 const Container = styled.div`
   display: flex;
   justify=items: center;
@@ -175,9 +147,8 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh
-`
-
+`;
 const HomeContainer = styled.div`
   width: 100%;
   height: 100%;
-`
+`;
