@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Nav() {
   const [show, setShow] = useState(false);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -17,13 +20,23 @@ export default function Nav() {
     };
   }, []);
 
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+    navigate(`/search?q=${e.target.value}`)
+  };
+
   return (
     <NavContainer show={show}>
-      <InputSerch type="text" placeholder="검색" />
       <NavLogo
         alt="netflix logo"
         src={"https://cdn-icons-png.flaticon.com/512/5977/5977590.png"}
         onClick={() => window.location.reload()}
+      />
+      <InputSerch
+        type="text"
+        value={search}
+        onChange={handleChange}
+        placeholder="검색"
       />
       <NavUser
         alt="user logo"
@@ -61,7 +74,8 @@ const InputSerch = styled.input`
   padding: 7px;
   color: #fff;
   border: 1px solid #fff;
-  background: #000;
+  border-radius: 5px;
+  background-color: #000;
 `;
 
 const NavUser = styled.img`
