@@ -21,9 +21,14 @@ export const MovieDetailData = async movieNowData => {
   const { data: movieDetail } = await instance.get(`movie/${movieId}`, {
     params: { append_to_response: "videos" },
   });
-  console.log(movieDetail);
   return movieDetail;
 };
  
+export const MovieSearchData = async search => {
+  const {
+    data: { results },
+  } = await instance.get(`/search/multi?include_adult=false&query=${search}`);
+  return results;
+}
 
 
