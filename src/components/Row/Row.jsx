@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from "styled-components";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import MovieModal from "../Modal/MovieModal";
 import { useQuery } from '@tanstack/react-query';
 import { MovieData } from "../../api/axios";
+import Spinner from '../Spinner/Spinner';
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 8,
-    slidesToSlide: 8,
+    items: 6,
+    slidesToSlide: 6,
   },
   tablet: {
-    breakpoint: { max: 1024, min: 800 },
-    items: 5,
-    slidesToSlide: 5,
+    breakpoint: { max: 1100, min: 800 },
+    items: 4,
+    slidesToSlide: 4,
   },
   mobile: {
     breakpoint: { max: 800, min: 0 },
@@ -24,27 +24,18 @@ const responsive = {
   },
 };
 
-export default function Row({title, id, fetchUrl}) {
+export default function Row({title, id, fetchUrl, movieClick}) {
 
-  const [modalOpen, setModalOpen] = useState(false);
-  const [movieSelected, setMovieSelected] = useState({});
-  
   const {
     data: movieData,
     isLoading,
     error,
-  } = useQuery(["movieData", id], () => MovieData(fetchUrl));
+  } = useQuery(["movieData", id], () => MovieData(fetchUrl), {
+    retry: 0,
+  });
 
-  console.log(movieData);
-
-  const movieClick = (movie) => {
-    console.log(movie);
-    setModalOpen(true);
-    setMovieSelected(movie);
-  };
-
-  if (isLoading) return <div style={{color: "#fff"}}>로딩</div>;
-  if (error) return <div style={{ color: "#fff" }}>error</div>;
+  if (isLoading) return <Spinner />;
+  if (error) return <div>error</div>;
   
   return (
     <RowContainer>
@@ -63,51 +54,45 @@ export default function Row({title, id, fetchUrl}) {
           <RowItem
             key={movie.id}
             alt={movie.name}
-            src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+            src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
             onClick={() => movieClick(movie)}
           ></RowItem>
         ))}
       </Carousel>
-      {modalOpen && (
-        <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
-      )}
     </RowContainer>
   );
 }
 
+const RowContainer = styled.div`
+  position: relative;
+  top: -120px;
+  width: 100%;
+  padding-top: 40px;
+  padding-left: 50px;
+  box-sizing: border-box;
+  @media screen and (max-width: 1024px) {
+    padding-left: 30px;
+  }
+`;
 const Title = styled.div`
   font-size: 3.2vh;
   text-style: bold;
   color: #fff;
   padding: 5px;
-`
-
-const RowContainer = styled.div`
-  width: 100%;
-  padding-top: 40px;
-  padding-left: 50px;
-  box-sizing: border-box;
-  background: #000;
-  @media screen and (max-width: 1024px) {
-    padding-left: 30px;
-  }
 `;
-
-// padding: 30px;
 const RowItem = styled.img`
   display: flex;
-  width: 11.3vw;
-  border-radius: 17px;
+  width: 15.3vw;
+  border-radius: 10px;
   cursor: pointer;
-  
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
     transition: .5s;
   }
-  @media screen and (max-width: 1024px) {
-    width: 17.5vw;
+  @media screen and (max-width: 1100px) {
+    width: 22.8vw;
   }
   @media screen and (max-width: 800px) {
-    width: 28vw;
+    width: 30vw;
   }
 `;
