@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useQuery } from '@tanstack/react-query';
-import { MovieData } from "../../api/axios";
-import Spinner from '../Spinner/Spinner';
+import { useQuery } from "@tanstack/react-query";
+import { MovieData } from "../../services/axios";
+import Spinner from "../Spinner/Spinner";
 
 const responsive = {
   desktop: {
@@ -24,8 +24,7 @@ const responsive = {
   },
 };
 
-export default function Row({title, id, fetchUrl, movieClick}) {
-
+export default function Row({ title, id, fetchUrl, movieClick }) {
   const {
     data: movieData,
     isLoading,
@@ -36,7 +35,7 @@ export default function Row({title, id, fetchUrl, movieClick}) {
 
   if (isLoading) return <Spinner />;
   if (error) return <div>error</div>;
-  
+
   return (
     <RowContainer>
       <Title>{title}</Title>
@@ -75,7 +74,7 @@ const RowContainer = styled.div`
   }
 `;
 const Title = styled.div`
-  font-size: 3.2vh;
+  font-size: 1.2rem;
   text-style: bold;
   color: #fff;
   padding: 5px;
@@ -87,7 +86,7 @@ const RowItem = styled.img`
   cursor: pointer;
   &:hover {
     transform: scale(1.1);
-    transition: .5s;
+    transition: 0.5s;
   }
   @media screen and (max-width: 1100px) {
     width: 22.8vw;

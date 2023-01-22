@@ -20,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="browse" element={<Home />} />
           <Route path="search" element={<Search />} />
           {/* <Route path=":movieId" element={<Detail />} /> */}
         </Route>
