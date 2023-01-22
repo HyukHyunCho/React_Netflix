@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Nav() {
+
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
-
+  
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 50) {
@@ -29,8 +30,8 @@ export default function Nav() {
     <NavContainer show={show}>
       <NavLogo
         alt="netflix logo"
-        src={"https://cdn-icons-png.flaticon.com/512/5977/5977590.png"}
-        onClick={() => window.location.reload()}
+        src={'https://cdn-icons-png.flaticon.com/512/5977/5977590.png'}
+        onClick={() => navigate('/browse')}
       />
       <InputSerch
         type="text"
@@ -60,13 +61,12 @@ const NavContainer = styled.div`
   transition: all 0.5s;
   background-color: ${props => props.show && "#111"};
 `;
-
 const NavLogo = styled.img`
   position: fixed;
   left: 40px;
   width: 80px;
+  cursor: pointer;
 `;
-
 const InputSerch = styled.input`
   position: fixed;
   right: 80px;
@@ -77,7 +77,6 @@ const InputSerch = styled.input`
   border-radius: 5px;
   background-color: #000;
 `;
-
 const NavUser = styled.img`
   position: fixed;
   right: 40px;

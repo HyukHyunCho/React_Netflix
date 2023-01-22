@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useQuery } from '@tanstack/react-query';
-import { MovieData } from "../../api/axios";
+import { MovieData } from "../../services/axios";
 import Spinner from '../Spinner/Spinner';
 
 const responsive = {
@@ -75,7 +75,7 @@ const RowContainer = styled.div`
   }
 `;
 const Title = styled.div`
-  font-size: 3.2vh;
+  font-size: 1.2rem;
   text-style: bold;
   color: #fff;
   padding: 5px;
