@@ -27,8 +27,6 @@ export default function Search() {
     refetch();
   }, [searchKey]);
 
-  console.log(movieData);
-  
   if (isLoading) return <Spinner />;
   if (error) return <div>error</div>;
 
