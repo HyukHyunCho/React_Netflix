@@ -25,22 +25,21 @@ export default function Search() {
   });
 
   useEffect(() => {
-    console.log(searchKey);
     if (searchKey !== "") {
       refetch();
     } else {
-      console.log("asd");
       navigate("/browse");
     }
   }, [searchKey]);
 
   if (isLoading) return <Spinner />;
-  if (error) return <div>error</div>;
-
+  if (error) return <Empty>에러</Empty>;
+  
   return (
     <Container>
-      {movieData.length > 0 ? (
+      {movieData.length > 0 && movieData[0].backdrop_path !== null ? (
         <RowContainer>
+          <Title>{`${searchKey}: 관련 콘텐츠`}</Title>
           {movieData.map(
             movie =>
               movie.backdrop_path && (
@@ -74,18 +73,49 @@ export default function Search() {
     </Container>
   );
 }
-// flex-wrap: wrap;
-//   justify-content: center;
+
 const Container = styled.div`
-  display: flex;
   background-color: #000;
+  
+  padding: 2.5rem;
 `;
 const RowContainer = styled.div`
-  padding: 125px;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 120px;
+`;
+const Title = styled.div`
+  font-size: 28px;
+  text-style: bold;
+  color: #fff;
 `;
 const RowItem = styled.img`
-  width: 15vw;
-  border-radius: 5px;
+  box-sizing: border-box;
+  width: 16.5%;
+  border-radius: 10px;
   cursor: pointer;
-  margin: 30px 5px;
+  padding: 20px 2px 20px 2px;
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 25%;
+  }
+  @media screen and (max-width: 800px) {
+    width: 33%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 49%;
+  }
 `;
+
+// @media screen and (max-width: 1100px) {
+//     width: 22.8vw;
+//   }
+//   @media screen and (max-width: 800px) {
+//     width: 30vw;
+//   }
+//   @media screen and (max-width: 500px) {
+//     width: 45vw;
+//   }
