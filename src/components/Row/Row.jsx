@@ -6,11 +6,21 @@ import { useQuery } from "@tanstack/react-query";
 import { MovieData } from "../../services/axios";
 import Spinner from "../Spinner/Spinner";
 
+import number_1 from "../../assets/image/number_1.svg";
+import number_2 from "../../assets/image/number_2.svg";
+import number_3 from "../../assets/image/number_3.svg";
+import number_4 from "../../assets/image/number_4.svg";
+import number_5 from "../../assets/image/number_5.svg";
+import number_6 from "../../assets/image/number_6.svg";
+import number_7 from "../../assets/image/number_7.svg";
+import number_8 from "../../assets/image/number_8.svg";
+import number_9 from "../../assets/image/number_9.svg";
+
 const responsive = {
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 6,
-    slidesToSlide: 6,
+    breakpoint: { max: 3000, min: 1100 },
+    items: 5,
+    slidesToSlide: 5,
   },
   tablet: {
     breakpoint: { max: 1100, min: 800 },
@@ -24,7 +34,37 @@ const responsive = {
   },
 };
 
-export default function Row({ title, id, fetchUrl, movieClick }) {
+const imgArr = [
+  {
+    src: number_1,
+  },
+  {
+    src: number_2,
+  },
+  {
+    src: number_3,
+  },
+  {
+    src: number_4,
+  },
+  {
+    src: number_5,
+  },
+  {
+    src: number_6,
+  },
+  {
+    src: number_7,
+  },
+  {
+    src: number_8,
+  },
+  {
+    src: number_9,
+  },
+];
+
+export default function Row({ title, id, fetchUrl, movieClick, isLankRow }) {
   const {
     data: movieData,
     isLoading,
@@ -35,28 +75,48 @@ export default function Row({ title, id, fetchUrl, movieClick }) {
 
   if (isLoading) return <Spinner />;
   if (error) return <div>error</div>;
-
+  
   return (
     <RowContainer>
       <Title>{title}</Title>
       <Carousel
-        draggable={false}
+        draggable={true}
         responsive={responsive}
         // centerMode={true}
         infinite={true}
         keyBoardControl={true}
-        containerClass="carousel-container"
-        dotListClass="custom-dot-list-style"
-        itemClass="carousel-item-padding-50-px"
       >
-        {movieData.map(movie => (
-          <RowItem
-            key={movie.id}
-            alt={movie.name}
-            src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-            onClick={() => movieClick(movie)}
-          ></RowItem>
-        ))}
+        {movieData.map((movie, index) =>
+          isLankRow ? (
+            <RowLankContainer key={movie.id}>
+              <RowImgContainer>
+                {index < 9 && (
+                  <RowLankNumber
+                    key={movie.id}
+                    alt={movie.name}
+                    src={imgArr[index].src}
+                    onClick={() => movieClick(movie)}
+                  />
+                )}
+              </RowImgContainer>
+              <RowImgContainer key={movie.id}>
+                <RowLankItem
+                  key={movie.id}
+                  alt={movie.name}
+                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                  onClick={() => movieClick(movie)}
+                />
+              </RowImgContainer>
+            </RowLankContainer>
+          ) : (
+            <RowItem
+              key={movie.id}
+              alt={movie.name}
+              src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+              onClick={() => movieClick(movie)}
+            />
+          )
+        )}
       </Carousel>
     </RowContainer>
   );
@@ -66,32 +126,50 @@ const RowContainer = styled.div`
   position: relative;
   top: -120px;
   width: 100%;
-  padding-top: 40px;
-  padding-left: 50px;
+  padding: 2.5rem;
   box-sizing: border-box;
-  @media screen and (max-width: 1024px) {
-    padding-left: 30px;
-  }
 `;
 const Title = styled.div`
-  font-size: 1.2rem;
+  padding: 5px;
+  font-size: 1.5rem;
   text-style: bold;
   color: #fff;
-  padding: 5px;
 `;
-const RowItem = styled.img`
+
+const RowLankContainer = styled.div`
   display: flex;
-  width: 15.3vw;
+  width: 100%;
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+`;
+const RowImgContainer = styled.div`
+  width: 50%;
+  z-index: 100;
+`;
+const RowLankNumber = styled.img`
+  position: absolute;
+  width: 69%;
   border-radius: 10px;
   cursor: pointer;
   &:hover {
     transform: scale(1.1);
     transition: 0.5s;
   }
-  @media screen and (max-width: 1100px) {
-    width: 22.8vw;
-  }
-  @media screen and (max-width: 800px) {
-    width: 30vw;
+`;
+const RowLankItem = styled.img`
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  
+`;
+const RowItem = styled.img`
+  width: 95%;
+  border-radius: 10px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
   }
 `;
