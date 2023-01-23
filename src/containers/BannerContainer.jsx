@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import requests from "../services/requests";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-import { MovieData, MovieDataDilata } from "../services/axios";
+import {
+  MovieData,
+  MovieDataDetail,
+} from "../services/axios";
 import Spinner from "../components/Spinner/Spinner";
 import Banner from "../components/Banner/Banner";
 import Video from "../components/Video/Video";
@@ -27,20 +30,22 @@ export default function BannerContainer() {
     data: movie,
     isLoading: isLoadingDetail,
     error: errorDetail,
-  } = useQuery(["MovieDataDilata"], () => MovieDataDilata(movieNowData), {
+  } = useQuery(["MovieDataDetail"], () => MovieDataDetail(movieNowData), {
     enabled: !!movieNowData,
     retry: 0,
   });
-
+ 
   const movieClick = movie => {
     setModalOpen(true);
     setMovieSelected(movie);
   };
 
   if (isLoadingMovie || isLoadingDetail) return <Spinner />;
-  if (errorMovie) return <div>에러</div>;
-  if (errorDetail) return <div>에러</div>;
-
+  if (errorMovie) return <Empty>에러</Empty>;
+  if (errorDetail) return <Empty>에러</Empty>;
+  // if (isLoadingDetails) return <Empty>에러123</Empty>;
+  // if (errorDetails) return <Empty>에러124</Empty>;
+  
   return (
     <Container>
       {isClicked === false ? (
@@ -52,18 +57,29 @@ export default function BannerContainer() {
           />
           <Row
             id="1"
+            title="Top 20 순위"
+            fetchUrl={requests.fetchTopRated}
+            movieClick={movieClick}
+            isLankRow
+          />
+          <Row
+            id="2"
             title="오직 넷플릭스에서만"
             fetchUrl={requests.fetchNetflixOriginals}
             movieClick={movieClick}
           />
           <Row
-            id="2"
+            id="3"
             title="지금 뜨는 콘텐츠"
             fetchUrl={requests.fetchTrending}
             movieClick={movieClick}
           />
           {modalOpen && (
-            <MovieModal {...movieSelected} setModalOpen={setModalOpen} />
+            <MovieModal
+              {...movieSelected}
+              setModalOpen={setModalOpen}
+              setIsClicked={setIsClicked}
+            />
           )}
         </>
       ) : (
@@ -85,8 +101,3 @@ const Container = styled.div`
   width: 100%;
   background-color: #000;
 `;
-
-// const Layout = styled.div`
-//   width: 100%;
-//   background-color: #000;
-// `;
