@@ -10,6 +10,7 @@ export default function MovieModal({
   first_air_date,
   vote_average,
   setModalOpen,
+  setIsClicked,
 }) {
   return (
     <ModalContainer>
@@ -26,7 +27,7 @@ export default function MovieModal({
             alt="image"
           />
           <Title>{title ? title : name}</Title>
-          <PlayButton>▶ 재생</PlayButton>
+          <PlayButton onClick={() => setIsClicked(true)}>▶ 재생</PlayButton>
           <ModalContent>
             <Detail>
               <PersentText>98% 일치</PersentText>
