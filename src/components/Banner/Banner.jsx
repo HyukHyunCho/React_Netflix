@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 export default function Banner({ movie, movieClick, setIsClicked }) {
+  console.log(movie)
   return (
     <Headers path={movie.backdrop_path}>
       <BannerContent>
