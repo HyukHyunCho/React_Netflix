@@ -15,7 +15,7 @@ export const MovieData = async fetchUrl => {
   return results;
 };
 
-export const MovieDataDilata = async movieNowData => {
+export const MovieDataDetail = async movieNowData => {
   const movieId = movieNowData[Math.floor(Math.random() * movieNowData.length)].id;
   const { data: movieDetail } = await instance.get(`movie/${movieId}`, {
     params: { append_to_response: "videos" },
