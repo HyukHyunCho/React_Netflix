@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import requests from "../services/requests";
+import { useBannerMovieData, useMovieData } from "../hooks/useMovie";
 import styled from "styled-components";
-import { useQuery } from "@tanstack/react-query";
-import {
-  MovieData,
-  MovieDataDetail,
-} from "../services/axios";
 import Spinner from "../components/Spinner/Spinner";
 import Banner from "../components/Banner/Banner";
 import Video from "../components/Video/Video";
@@ -19,39 +15,34 @@ export default function BannerContainer() {
   const [isClicked, setIsClicked] = useState(false);
 
   const {
-    data: movieNowData,
+    data: movieData,
     isLoading: isLoadingMovie,
+    isError: isErrorMovie,
     error: errorMovie,
-  } = useQuery(["movieData"], () => MovieData(requests.fetchNowPlaying), {
-    retry: 0,
-  });
+  } = useMovieData(0, requests.fetchNowPlaying);
 
   const {
-    data: movie,
+    data: bannerMovie,
     isLoading: isLoadingDetail,
+    isError: isErrorBannerMovie,
     error: errorDetail,
-  } = useQuery(["MovieDataDetail"], () => MovieDataDetail(movieNowData), {
-    enabled: !!movieNowData,
-    retry: 0,
-  });
- 
+  } = useBannerMovieData(movieData);
+
   const movieClick = movie => {
     setModalOpen(true);
     setMovieSelected(movie);
   };
 
   if (isLoadingMovie || isLoadingDetail) return <Spinner />;
-  if (errorMovie) return <Empty>에러</Empty>;
-  if (errorDetail) return <Empty>에러</Empty>;
-  // if (isLoadingDetails) return <Empty>에러123</Empty>;
-  // if (errorDetails) return <Empty>에러124</Empty>;
+  if (isErrorMovie) return <Empty>{errorMovie.message}</Empty>;
+  if (isErrorBannerMovie) return <Empty>{errorDetail.message}</Empty>;
   
   return (
     <Container>
       {isClicked === false ? (
         <>
           <Banner
-            movie={movie}
+            movie={bannerMovie}
             movieClick={movieClick}
             setIsClicked={setIsClicked}
           />
@@ -68,12 +59,12 @@ export default function BannerContainer() {
             fetchUrl={requests.fetchNetflixOriginals}
             movieClick={movieClick}
           />
-          <Row
+          {/* <Row
             id="3"
             title="지금 뜨는 콘텐츠"
             fetchUrl={requests.fetchTrending}
             movieClick={movieClick}
-          />
+          /> */}
           {modalOpen && (
             <MovieModal
               {...movieSelected}
@@ -84,8 +75,8 @@ export default function BannerContainer() {
         </>
       ) : (
         <>
-          {movie.videos.results[0] ? (
-            <Video movie={movie} />
+          {bannerMovie.videos.results[0] ? (
+            <Video movie={bannerMovie} />
           ) : (
             <Empty>
               <p>영상이 없습니다.</p>
