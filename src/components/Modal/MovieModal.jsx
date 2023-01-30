@@ -45,7 +45,7 @@ export default function MovieModal({
 };
 
 const ModalContainer = styled.div`
-  z-index: 1200;
+  z-index: 10000;
   position: absolute;
 `;
 const ModalWrapper = styled.div`
