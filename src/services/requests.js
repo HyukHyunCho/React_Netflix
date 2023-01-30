@@ -8,6 +8,7 @@ const requests = {
   fetchHorrorMovies: "/discover/movie?with_genres=27",
   fetchRomanceMovies: "/discover/movie?with_genres=10749",
   fetchDocumentaries: "/discover/movie?with_genres=99",
+  fetchBestMovie: "/discover/movie?with_genres=18&primary_release_year=2022",
 };
 
 export default requests;

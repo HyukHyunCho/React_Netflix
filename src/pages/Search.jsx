@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { MovieData, MovieSearchData } from "../services/axios";
+import { MovieSearchData } from "../services/axios";
 import Spinner from "../components/Spinner/Spinner";
 import styled from "styled-components";
 import Empty from "../components/Empty/Empty";
@@ -18,6 +18,7 @@ export default function Search() {
   const {
     data: movieData,
     isLoading,
+    isError,
     error,
     refetch,
   } = useQuery(["searchData"], () => MovieSearchData(searchKey), {
@@ -33,7 +34,7 @@ export default function Search() {
   }, [searchKey]);
 
   if (isLoading) return <Spinner />;
-  if (error) return <Empty>에러</Empty>;
+  if (isError) return <Empty>{error.message}</Empty>;
   
   return (
     <Container>
@@ -76,7 +77,6 @@ export default function Search() {
 
 const Container = styled.div`
   background-color: #000;
-  
   padding: 2.5rem;
 `;
 const RowContainer = styled.div`
