@@ -8,6 +8,24 @@ const instance = axios.create({
   },
 });
 
+export const userLogin = async userInfo => {
+  const { data } = await axios.post("/user/login", userInfo);
+  return data;
+};
+
+export const userSignup = async userInfo => {
+  const { data } = await axios.post("/user", userInfo);
+  return data;
+}
+
+export const MovieBannerData = async movieData => {
+  const movieId = movieData[Math.floor(Math.random() * movieData.length)].id;
+  const { data: movieDetail } = await instance.get(`movie/${movieId}`, {
+    params: { append_to_response: "videos" },
+  });
+  return movieDetail;
+};
+ 
 export const MovieData = async fetchUrl => {
   const {
     data: { results },
@@ -15,14 +33,6 @@ export const MovieData = async fetchUrl => {
   return results;
 };
 
-export const MovieDataDetail = async movieNowData => {
-  const movieId = movieNowData[Math.floor(Math.random() * movieNowData.length)].id;
-  const { data: movieDetail } = await instance.get(`movie/${movieId}`, {
-    params: { append_to_response: "videos" },
-  });
-  return movieDetail;
-};
- 
 export const MovieSearchData = async search => {
   const {
     data: { results },

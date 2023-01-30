@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useMovieData } from "../../hooks/useMovie";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useQuery } from "@tanstack/react-query";
-import { MovieData } from "../../services/axios";
 import Spinner from "../Spinner/Spinner";
-
 import number_1 from "../../assets/image/number_1.svg";
 import number_2 from "../../assets/image/number_2.svg";
 import number_3 from "../../assets/image/number_3.svg";
@@ -15,6 +13,7 @@ import number_6 from "../../assets/image/number_6.svg";
 import number_7 from "../../assets/image/number_7.svg";
 import number_8 from "../../assets/image/number_8.svg";
 import number_9 from "../../assets/image/number_9.svg";
+import Empty from "../Empty/Empty";
 
 const responsive = {
   desktop: {
@@ -65,17 +64,17 @@ const imgArr = [
 ];
 
 export default function Row({ title, id, fetchUrl, movieClick, isLankRow }) {
+  
   const {
     data: movieData,
     isLoading,
+    isError,
     error,
-  } = useQuery(["movieData", id], () => MovieData(fetchUrl), {
-    retry: 0,
-  });
+  } = useMovieData(id, fetchUrl);
 
   if (isLoading) return <Spinner />;
-  if (error) return <div>error</div>;
-  
+  if (isError) return <Empty>{error.message}</Empty>;
+
   return (
     <RowContainer>
       <Title>{title}</Title>
@@ -86,37 +85,39 @@ export default function Row({ title, id, fetchUrl, movieClick, isLankRow }) {
         infinite={true}
         keyBoardControl={true}
       >
-        {movieData.map((movie, index) =>
-          isLankRow ? (
-            <RowLankContainer key={movie.id}>
-              <RowImgContainer>
-                {index < 9 && (
-                  <RowLankNumber
+        {movieData !== undefined &&
+          movieData.map((movie, index) =>
+            isLankRow ? (
+              <RowLankContainer key={movie.id}>
+                <RowImgContainer>
+                  {index < 9 && (
+                    <RowLankNumber
+                      key={movie.id}
+                      alt={movie.name}
+                      src={imgArr[index].src}
+                      onClick={() => movieClick(movie)}
+                    />
+                  )}
+                </RowImgContainer>
+                <RowImgContainer key={movie.id}>
+                  <RowLankItem
                     key={movie.id}
                     alt={movie.name}
-                    src={imgArr[index].src}
+                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                     onClick={() => movieClick(movie)}
                   />
-                )}
-              </RowImgContainer>
-              <RowImgContainer key={movie.id}>
-                <RowLankItem
-                  key={movie.id}
-                  alt={movie.name}
-                  src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-                  onClick={() => movieClick(movie)}
-                />
-              </RowImgContainer>
-            </RowLankContainer>
-          ) : (
-            <RowItem
-              key={movie.id}
-              alt={movie.name}
-              src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-              onClick={() => movieClick(movie)}
-            />
-          )
-        )}
+                </RowImgContainer>
+              </RowLankContainer>
+            ) : (
+              movie.backdrop_path &&
+              <RowItem
+                key={movie.id}
+                alt={movie.name}
+                src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                onClick={() => movieClick(movie)}
+              />
+            )
+          )}
       </Carousel>
     </RowContainer>
   );
@@ -135,7 +136,6 @@ const Title = styled.div`
   text-style: bold;
   color: #fff;
 `;
-
 const RowLankContainer = styled.div`
   display: flex;
   width: 100%;
@@ -162,7 +162,6 @@ const RowLankItem = styled.img`
   width: 100%;
   border-radius: 10px;
   cursor: pointer;
-  
 `;
 const RowItem = styled.img`
   width: 95%;
