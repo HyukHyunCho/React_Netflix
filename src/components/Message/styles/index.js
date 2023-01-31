@@ -1,9 +1,4 @@
-import React from 'react'
 import styled from "styled-components";
-
-export default function Message({ children }) {
-  return <MessageContainer>{children}</MessageContainer>;
-}
 
 export const MessageContainer = styled.div`
   width: 100%;

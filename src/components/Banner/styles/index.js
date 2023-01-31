@@ -1,32 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-export default function Banner({ movie, movieClick, setIsClicked }) {
-  return (
-    <Headers path={movie.backdrop_path}>
-      <BannerContent>
-        <BannerTitle>
-          {movie.title || movie.name || movie.original_name}
-        </BannerTitle>
-        <Banneroverview>{movie.overview}</Banneroverview>
-        <BannerButton>
-          <Button
-            color="black"
-            background="white"
-            onClick={() => setIsClicked(true)}
-          >
-            ▶ 재생
-          </Button>
-          <Button color="white" onClick={() => movieClick(movie)}>
-            상세 정보
-          </Button>
-        </BannerButton>
-      </BannerContent>
-    </Headers>
-  );
-}
-
-const Headers = styled.header`
+export const Headers = styled.header`
   background: linear-gradient(
       to bottom,
       rgba(20, 20, 20, 0) 50%,
@@ -37,11 +11,11 @@ const Headers = styled.header`
   background-position: top center;
   background-size: cover;
 `;
-const BannerContent = styled.div`
+export const BannerContent = styled.div`
   width: 100%;
   height: 700px;
 `;
-const BannerTitle = styled.div`
+export const BannerTitle = styled.div`
   font-size: 3rem;
   font-weight: 800;
   color: #fff;
@@ -49,7 +23,7 @@ const BannerTitle = styled.div`
   padding-left: 50px;
   padding-bottom: 0.5rem;
 `;
-const Banneroverview = styled.div`
+export const Banneroverview = styled.div`
   width: 30vw;
   font-size: 1rem;
   font-weight: 500;
@@ -61,10 +35,10 @@ const Banneroverview = styled.div`
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
-const BannerButton = styled.div`
+export const BannerButton = styled.div`
   margin-left: 30px;
 `;
-const Button = styled.button`
+export const Button = styled.button`
   min-width: 65px;
   border-radius: 5px;
   font-size: 1vw;
