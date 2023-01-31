@@ -1,6 +1,6 @@
 import React from "react";
-import HomeContainer from "../containers/BannerContainer";
+import HomeForm from "../containers/HomeForm";
 
 export default function Home() {
-  return <HomeContainer />;
+  return <HomeForm />;
 }

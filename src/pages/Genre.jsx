@@ -1,6 +1,6 @@
 import React from "react";
-import GenreContainer from "../containers/GenreContainer";
+import GenreForm from "../containers/GenreForm";
 
 export default function Home() {
-  return <GenreContainer />;
+  return <GenreForm />;
 }

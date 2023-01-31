@@ -1,18 +1,18 @@
 import { Outlet, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Genre from "./pages/Genre";
 import Search from "./pages/Search";
+import NavContainer from "./containers/NavContainer";
+import FooterContainer from "./containers/FooterContainer";
 
 const Layout = () => {
   return (
     <div>
-      <Navbar />
+      <NavContainer />
       <Outlet />
-      <Footer />
+      <FooterContainer />
     </div>
   );
 };

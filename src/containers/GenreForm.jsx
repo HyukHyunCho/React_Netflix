@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import requests from "../services/requests";
 import styled from "styled-components";
-import Row from "../components/Row/Row";
-import MovieModal from "../components/Modal/MovieModal";
+import Modal from "../components/Modal";
+import RowContainer from "./RowContainer";
 
-export default function BannerContainer() {
+export default function GenreForm() {
   const [modalOpen, setModalOpen] = useState(false);
   const [movieSelected, setMovieSelected] = useState({});
   const [isClicked, setIsClicked] = useState(false);
@@ -15,28 +15,28 @@ export default function BannerContainer() {
   };
 
   return (
-    <Container>
-      <Row
+    <GenreContainer>
+      <RowContainer
         id="1"
         title="다큐멘터리"
         type="genre"
         fetchUrl={requests.fetchDocumentaries}
         movieClick={movieClick}
       />
-      <Row
+      <RowContainer
         id="2"
         title="액션 영화"
         fetchUrl={requests.fetchActionMovies}
         movieClick={movieClick}
       />
-      <Row
+      <RowContainer
         id="3"
         title="코미디 영화"
         type="genre"
         fetchUrl={requests.fetchComedyMovies}
         movieClick={movieClick}
       />
-      <Row
+      <RowContainer
         id="4"
         title="호러 영화"
         type="genre"
@@ -44,17 +44,17 @@ export default function BannerContainer() {
         movieClick={movieClick}
       />
       {modalOpen && (
-        <MovieModal
+        <Modal
           {...movieSelected}
           setModalOpen={setModalOpen}
           setIsClicked={setIsClicked}
         />
       )}
-    </Container>
+    </GenreContainer>
   );
 }
 
-const Container = styled.div`
+const GenreContainer = styled.div`
   width: 100%;
   padding-top: 250px;
   min-height: 100vh;

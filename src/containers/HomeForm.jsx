@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import requests from "../services/requests";
 import { useBannerMovieData, useMovieData } from "../hooks/useMovie";
-import styled from "styled-components";
-import Spinner from "../components/Spinner/Spinner";
-import Banner from "../components/Banner/Banner";
-import Video from "../components/Video/Video";
-import Row from "../components/Row/Row";
-import MovieModal from "../components/Modal/MovieModal";
-import Empty from "../components/Empty/Empty";
+import Spinner from "../components/Spinner";
+import Banner from "../components/Banner";
+import Video from "../components/Video";
+import Modal from "../components/Modal";
+import Empty from "../components/Empty";
+import RowContainer from "./RowContainer";
+import { BannerContainer } from "../components/Row/styles";
 
-export default function BannerContainer() {
+export default function HomeForm() {
   const [modalOpen, setModalOpen] = useState(false);
   const [movieSelected, setMovieSelected] = useState({});
   const [isClicked, setIsClicked] = useState(false);
@@ -38,7 +38,7 @@ export default function BannerContainer() {
   if (isErrorBannerMovie) return <Empty>{errorDetail.message}</Empty>;
   
   return (
-    <Container>
+    <BannerContainer>
       {isClicked === false ? (
         <>
           <Banner
@@ -46,14 +46,14 @@ export default function BannerContainer() {
             movieClick={movieClick}
             setIsClicked={setIsClicked}
           />
-          <Row
+          <RowContainer
             id="1"
             title="Top 20 순위"
             fetchUrl={requests.fetchTopRated}
             movieClick={movieClick}
             isLankRow
           />
-          <Row
+          <RowContainer
             id="2"
             title="오직 넷플릭스에서만"
             fetchUrl={requests.fetchNetflixOriginals}
@@ -66,7 +66,7 @@ export default function BannerContainer() {
             movieClick={movieClick}
           /> */}
           {modalOpen && (
-            <MovieModal
+            <Modal
               {...movieSelected}
               setModalOpen={setModalOpen}
               setIsClicked={setIsClicked}
@@ -84,11 +84,6 @@ export default function BannerContainer() {
           )}
         </>
       )}
-    </Container>
+    </BannerContainer>
   );
 }
-
-const Container = styled.div`
-  width: 100%;
-  background-color: #000;
-`;
