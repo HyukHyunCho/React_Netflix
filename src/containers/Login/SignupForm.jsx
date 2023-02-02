@@ -10,37 +10,29 @@ import {
   Text,
 } from "../../components/LoginCard/styles";
 import LoginCard from "../../components/LoginCard";
-import axios from "axios";
 
 export default function SignupForm() {
   const navigate = useNavigate();
   const { handleSubmit, control, watch } = useForm();
   const { mutate: addUser } = useAddUser();
   const { mutate: uploadImage } = useImageUpload();
-
   const [message, setMessage] = useState("");
-
-  const onSubmit = async (formData, e) => {
-   
+  
+  const onSubmit = (formData, e) => {
     const formImg = new FormData();
     formImg.append("image", e.target.profile.files[0]);
- 
-    // const { data: { filename } } = await axios.post(`/image/uploadfile`, formImg);
-   
-    //formData.image = filename;
 
     uploadImage(formImg, {
       onSuccess: filename => {
         console.log(filename);
 
         formData.image = filename;
-
         addUser(
           { user: formData },
           {
             onSuccess: data => {
               if (data.user) {
-                navigate("/browse");
+                navigate("/");
               }
             },
             onError: err => {
@@ -50,20 +42,13 @@ export default function SignupForm() {
         );
       },
       onErrpr: err => {
-        console.log(err);
+        setMessage(err.response.data.message);
       },
     });
-
-    
   };
 
   return (
-    <LoginCard
-      title={"회원가입"}
-      btnName={"로그인 이동"}
-      message={message}
-      onSubmit={onSubmit}
-    >
+    <LoginCard title={"회원가입"} btnName={"로그인 이동"} message={message}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="email"
@@ -159,7 +144,7 @@ export default function SignupForm() {
             </Form>
           )}
           rules={{
-            required: "닉네임을 입력 해주세요.",
+            required: "Asf",
             pattern: /^[-._a-z0-9]+$/gi,
           }}
         />
@@ -171,12 +156,19 @@ export default function SignupForm() {
             <Form>
               <Input
                 onChange={onChange}
-                placeholder="전화번호를 입력 해주세요."
+                placeholder="휴대폰 번호를 입력 해주세요."
               />
               <LabelMessage>{!!error}</LabelMessage>
               <LabelMessage>{error ? error.message : null}</LabelMessage>
             </Form>
           )}
+          rules={{
+            required: "휴대폰 번호를 입력 해주세요.",
+            pattern: {
+              value: /^\d{3}\d{3,4}\d{4,}$/,
+              message: "휴대폰 형식을 입력하세요.",
+            },
+          }}
         />
         <Controller
           name="image"
@@ -194,6 +186,9 @@ export default function SignupForm() {
               <LabelMessage>{error ? error.message : null}</LabelMessage>
             </Form>
           )}
+          rules={{
+            required: "프로필 파일을 업로드 해주세요.",
+          }}
         />
         <Form>
           <Button type="submit">회원가입</Button>
