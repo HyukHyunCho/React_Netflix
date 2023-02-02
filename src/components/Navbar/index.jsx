@@ -15,7 +15,7 @@ import {
   NavUser,
 } from "./styles";
 
-export default function Nav({ show, dropDown, setDropDown, handleChange, handleClick, image }) {
+export default function Navbar({ show, dropDown, setDropDown, handleChange, handleClick, image }) {
   return (
     <NavContainer show={show}>
       <NavLogo
@@ -51,15 +51,30 @@ export default function Nav({ show, dropDown, setDropDown, handleChange, handleC
         </Vertical>
       </MenuContainer>
       <OptionsContainer>
-        <InputSerch
-          type="text"
-          onChange={handleChange}
-          placeholder="검색"
-        />
-        <NavUser
-          alt="user logo"
-          src={`https://mandarin.api.weniv.co.kr/${image}`}
-        />
+        <InputSerch type="text" onChange={handleChange} placeholder="검색" />
+
+         <MenuUl className="menu">
+          <MenuLi
+            onMouseOver={() => setDropDown(true)}
+            onMouseOut={() => setDropDown(false)}
+          >
+            <NavUser
+              alt="user logo"
+              src={`https://mandarin.api.weniv.co.kr/${image}`}
+            />
+            ▼
+            <Depth className="depth_1" dropDown={dropDown}>
+              <MenuLi>
+                <DepthMenu onClick={() => handleClick("/browse")}>홈</DepthMenu>
+              </MenuLi>
+              <MenuLi>
+                <DepthMenu onClick={() => handleClick("/browse/genre")}>
+                  장르별
+                </DepthMenu>
+              </MenuLi>
+            </Depth>
+          </MenuLi>
+        </MenuUl> 
       </OptionsContainer>
     </NavContainer>
   );
