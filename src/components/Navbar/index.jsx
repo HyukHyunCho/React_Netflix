@@ -19,8 +19,7 @@ import {
 } from "./styles";
 import userIcon from "../../assets/image/user.svg";
 
-export default function Navbar({ show, handleChange, handleClick, userInfo }) {
- 
+export default function Navbar({ show, handleChange, handleClick, userInfo, LogoutClick }) {
   return (
     <NavContainer show={show}>
       <NavLogo
@@ -78,7 +77,7 @@ export default function Navbar({ show, handleChange, handleClick, userInfo }) {
                 <NavUserText>계정 정보</NavUserText>
               </UserContainer>
             </DropLink>
-            <DropLink>넷플릭스에서 나가기</DropLink>
+            <DropLink onClick={LogoutClick}>넷플릭스에서 나가기</DropLink>
           </DropdownContent>
         </Dropdown>
       </OptionsContainer>

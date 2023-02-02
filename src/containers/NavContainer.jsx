@@ -31,6 +31,12 @@ export default function NavContainer() {
     navigate(path, state);
   };
 
+  const LogoutClick = () => {
+    localStorage.removeItem("token_");
+    localStorage.removeItem("account");
+    navigate("/signin");
+  };
+
   return (
     <>
       {data && (
@@ -39,6 +45,7 @@ export default function NavContainer() {
           handleChange={handleChange}
           handleClick={handleClick}
           userInfo={data}
+          LogoutClick={LogoutClick}
         />
       )}
     </>
