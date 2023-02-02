@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useImage } from "../hooks/useAuth";
+import { useUserInfo } from "../hooks/useAuth";
 import Navbar from "../components/Navbar";
 
 export default function NavContainer() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [search, setSearch] = useState("");
-  const [dropDown, setDropDown] = useState(false);
-
-  const { data, isLoading, isError, error } = useImage("1675110549570.jpg");
-
-  console.log(data);
-
+  const { data, isLoading, isError, error } = useUserInfo(localStorage.getItem("account"));
+  
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.scrollY > 50) {
@@ -31,18 +27,20 @@ export default function NavContainer() {
     navigate(`/browse/search?q=${e.target.value}`);
   };
 
-  const handleClick = path => {
-    navigate(path);
+  const handleClick = (path,state) => {
+    navigate(path, state);
   };
 
   return (
-    <Navbar
-      show={show}
-      dropDown={dropDown}
-      setDropDown={setDropDown}
-      handleChange={handleChange}
-      handleClick={handleClick}
-      image={"1675110549570.jpg"}
-    />
+    <>
+      {data && (
+        <Navbar
+          show={show}
+          handleChange={handleChange}
+          handleClick={handleClick}
+          userInfo={data}
+        />
+      )}
+    </>
   );
 }
