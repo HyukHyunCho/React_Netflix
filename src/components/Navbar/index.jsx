@@ -6,16 +6,21 @@ import {
   Horizontal,
   Vertical,
   Menu,
-  MenuUl,
-  MenuLi,
-  Depth,
-  DepthMenu,
   OptionsContainer,
   InputSerch,
   NavUser,
+  UserContainer,
+  MenuDown,
+  UserDown,
+  Dropdown,
+  DropdownContent,
+  DropLink,
+  NavUserText,
 } from "./styles";
+import userIcon from "../../assets/image/user.svg";
 
-export default function Navbar({ show, dropDown, setDropDown, handleChange, handleClick, image }) {
+export default function Navbar({ show, handleChange, handleClick, userInfo }) {
+ 
   return (
     <NavContainer show={show}>
       <NavLogo
@@ -28,53 +33,55 @@ export default function Navbar({ show, dropDown, setDropDown, handleChange, hand
           <Menu onClick={() => handleClick("/browse/genre")}>장르별</Menu>
         </Horizontal>
         <Vertical>
-          <MenuUl className="menu">
-            <MenuLi
-              onMouseOver={() => setDropDown(true)}
-              onMouseOut={() => setDropDown(false)}
-            >
-              메뉴▼
-              <Depth className="depth_1" dropDown={dropDown}>
-                <MenuLi>
-                  <DepthMenu onClick={() => handleClick("/browse")}>
-                    홈
-                  </DepthMenu>
-                </MenuLi>
-                <MenuLi>
-                  <DepthMenu onClick={() => handleClick("/browse/genre")}>
-                    장르별
-                  </DepthMenu>
-                </MenuLi>
-              </Depth>
-            </MenuLi>
-          </MenuUl>
+          <Dropdown>
+            <MenuDown>메뉴▼</MenuDown>
+            <DropdownContent>
+              <DropLink
+                center={"center"}
+                onClick={() => handleClick("/browse")}
+              >
+                홈
+              </DropLink>
+              <DropLink
+                center={"center"}
+                onClick={() => handleClick("/browse/genre")}
+              >
+                장르별
+              </DropLink>
+            </DropdownContent>
+          </Dropdown>
         </Vertical>
       </MenuContainer>
       <OptionsContainer>
         <InputSerch type="text" onChange={handleChange} placeholder="검색" />
-
-         <MenuUl className="menu">
-          <MenuLi
-            onMouseOver={() => setDropDown(true)}
-            onMouseOut={() => setDropDown(false)}
-          >
-            <NavUser
-              alt="user logo"
-              src={`https://mandarin.api.weniv.co.kr/${image}`}
-            />
-            ▼
-            <Depth className="depth_1" dropDown={dropDown}>
-              <MenuLi>
-                <DepthMenu onClick={() => handleClick("/browse")}>홈</DepthMenu>
-              </MenuLi>
-              <MenuLi>
-                <DepthMenu onClick={() => handleClick("/browse/genre")}>
-                  장르별
-                </DepthMenu>
-              </MenuLi>
-            </Depth>
-          </MenuLi>
-        </MenuUl> 
+        <Dropdown>
+          <NavUser
+            alt="user"
+            src={`https://mandarin.api.weniv.co.kr/${userInfo.profile.image}`}
+          />
+          <UserDown>▼</UserDown>
+          <DropdownContent>
+            <DropLink>
+              <UserContainer>
+                <NavUser
+                  alt="user"
+                  src={`https://mandarin.api.weniv.co.kr/${userInfo.profile.image}`}
+                />
+                <NavUserText>{userInfo.profile.username}</NavUserText>
+                <NavUserText>{userInfo.profile.accountname}</NavUserText>
+              </UserContainer>
+            </DropLink>
+            <DropLink>
+              <UserContainer
+                onClick={() => handleClick("/profile", { state: userInfo })}
+              >
+                <NavUser alt={"user"} src={userIcon} />
+                <NavUserText>계정 정보</NavUserText>
+              </UserContainer>
+            </DropLink>
+            <DropLink>넷플릭스에서 나가기</DropLink>
+          </DropdownContent>
+        </Dropdown>
       </OptionsContainer>
     </NavContainer>
   );
