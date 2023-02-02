@@ -192,7 +192,7 @@ export default function SignupForm() {
         />
         <Form>
           <Button type="submit">회원가입</Button>
-          <Text onClick={() => navigate("/")}>로그인 이동</Text>
+          <Text onClick={() => navigate("/signin")}>로그인 화면으로 이동</Text>
         </Form>
       </form>
     </LoginCard>
