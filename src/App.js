@@ -4,8 +4,10 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Genre from "./pages/Genre";
 import Search from "./pages/Search";
+import Profile from "./pages/Profile";
 import NavContainer from "./containers/NavContainer";
 import FooterContainer from "./containers/FooterContainer";
+import ProfileManageForm from "./containers/Profile/ProfileManageForm";
 
 const Layout = () => {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Signin />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/manage" element={<ProfileManageForm />} />
         <Route path="/browse" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="browse" element={<Home />} />
