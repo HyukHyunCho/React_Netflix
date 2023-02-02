@@ -4,9 +4,8 @@ export const NavContainer = styled.div`
   position: fixed;
   display: flex;
   width: 100%;
-  height: 50px;
+  height: 60px;
   z-index: 10000;
-  padding-top: 10px;
   align-items: center;
   transition-timing-function: ease-in;
   transition: all 0.5s;
@@ -22,7 +21,6 @@ export const MenuContainer = styled.div`
   margin-right: auto;
 `;
 export const Horizontal = styled.div`
-  display: block;
   @media screen and (max-width: 860px) {
     display: none;
   }
@@ -31,36 +29,6 @@ export const Vertical = styled.div`
   display: none;
   @media screen and (max-width: 860px) {
     display: block;
-  }
-`;
-export const MenuUl = styled.ul`
-  list-style: none;
-  display: block;
-  content: "";
-  clear: both;
-  color: #fff;
-`;
-export const MenuLi = styled.li`
-  position: relative;
-`;
-export const Depth = styled.ul`
-  display: ${props => (props.dropDown === true ? "block" : "none")};
-  position: absolute;
-  left: -160px;
-  text-align: center;
-  opacity: 0.7;
-  list-style: none;
-`;
-export const DepthMenu = styled.a`
-  display: block;
-  width: 300px;
-  padding: 5px;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-  background: #000;
-  &:hover {
-    background-color: #191919;
   }
 `;
 export const Menu = styled.a`
@@ -73,7 +41,7 @@ export const OptionsContainer = styled.div`
   display: inline-flex;
   align-items: center;
   color: white;
-  padding-right: 30px;
+  padding-right: 50px;
 `;
 export const InputSerch = styled.input`
   width: 15vw;
@@ -82,8 +50,60 @@ export const InputSerch = styled.input`
   border: 1px solid #fff;
   border-radius: 5px;
   background-color: #000;
-  margin-right: 20px;
+`;
+export const Dropdown = styled.div`
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  height: 32px;
+  padding: 10px;
+`;
+export const DropdownContent = styled.div`
+  position: absolute;
+  top: 45px;
+  right: -30px;
+  display: none;
+  background-color: #000;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  ${Dropdown}:hover & {
+    display: block;
+  }
+`;
+export const DropLink = styled.a`
+  display: block;
+  color: #fff;
+  padding: 10px;
+  text-align: ${props => (props.center === "center" ? "center" : "left")}; 
+  font-size: 12px;
+  &:hover {
+    background-color: #222;
+  }
+`;
+export const UserContainer = styled.div`
+  display: flex;
+  cursor: pointer;
 `;
 export const NavUser = styled.img`
-  width: 30px;
+  width: 32px;
+  border-radius: 5px;
+  `;
+export const NavUserText = styled.p`
+  margin-left: 10px;
+`
+export const MenuDown = styled.p`
+  margin: 7px;
+  font-size: 12px;
+  color: #fff;
 `;
+export const UserDown = styled(MenuDown)`
+  ${Dropdown}:hover & {
+    transform: rotate(180deg);
+    transition: 0.3s;
+  }
+`;
+
+
+
+

@@ -4,7 +4,6 @@ export const Layout = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
   width: 100%;
   position: relative;
   background-color: #000;
