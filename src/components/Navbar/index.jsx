@@ -68,7 +68,6 @@ export default function Navbar({ show, handleChange, handleClick, userInfo }) {
                   src={`https://mandarin.api.weniv.co.kr/${userInfo.profile.image}`}
                 />
                 <NavUserText>{userInfo.profile.username}</NavUserText>
-                <NavUserText>{userInfo.profile.accountname}</NavUserText>
               </UserContainer>
             </DropLink>
             <DropLink>

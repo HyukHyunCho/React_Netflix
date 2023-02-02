@@ -24,7 +24,6 @@ export default function ProfileManageForm() {
     const formImg = new FormData();
     formImg.append("image", e.target.profile.files[0]);
 
-    console.log(formData);
     uploadImage(formImg, {
       onSuccess: filename => {
         formData.image = filename;
@@ -37,7 +36,6 @@ export default function ProfileManageForm() {
                 alert("수정완료");
                 navigate("/browse");
               }
-
             },
             onError: err => {
               setMessage(err.response.data.message);
