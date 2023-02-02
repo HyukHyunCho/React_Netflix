@@ -25,6 +25,7 @@ export default function SigninContainer() {
       {
         onSuccess: data => {
           if (data.user) {
+            localStorage.setItem("account", data.user.accountname);
             localStorage.setItem("token_", data.user.token);
             navigate("/browse");
           } else {
@@ -43,7 +44,6 @@ export default function SigninContainer() {
       title={"로그인"}
       btnName={"회원가입 이동"}
       message={message}
-      onSubmit={onSubmit}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
