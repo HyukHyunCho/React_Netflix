@@ -1,7 +1,15 @@
 import axios from "axios";
 
+const baseInstance = axios.create({
+  baseURL: "https://mandarin.api.weniv.co.kr",
+});
+
 const authInstance = axios.create({
   baseURL: "https://mandarin.api.weniv.co.kr",
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem("token_")}`,
+    "Content-type": "application/json",
+  },
 });
 
 const instance = axios.create({
@@ -13,25 +21,30 @@ const instance = axios.create({
 });
 
 export const userLogin = async userInfo => {
-  const { data } = await authInstance.post("/user/login", userInfo);
+  const { data } = await baseInstance.post("/user/login", userInfo);
   return data;
 };
 
 export const userSignup = async userInfo => {
-  const { data } = await authInstance.post("/user", userInfo);
+  const { data } = await baseInstance.post("/user", userInfo);
   return data;
 };
 
 export const imageUpload = async formImg => {
   const {
     data: { filename },
-  } = await authInstance.post(`/image/uploadfile`, formImg);
+  } = await baseInstance.post("/image/uploadfile", formImg);
   return filename;
 };
 
-export const getUserImage = async filepath => {
-  const res = authInstance.get(`/${filepath}`);
-  return res;
+export const userUpdate = async userInfo => {
+  const { data } = await authInstance.put("/user", userInfo);
+  return data;
+}
+
+export const getUserInfo = async accountname => {
+  const { data } = await authInstance.get(`/profile/${accountname}`);
+  return data;
 };
 
 export const MovieBannerData = async movieData => {
