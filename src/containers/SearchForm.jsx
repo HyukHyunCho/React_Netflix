@@ -6,6 +6,7 @@ import Spinner from "../components/Spinner";
 import Empty from "../components/Empty";
 import RowSearch from "../components/Row/RowSearch";
 import { SearchContainer, RowContainer, Title } from "../components/Row/styles";
+import useDebounce from "../hooks/useDebounce";
 
 export default function SearchForm() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function SearchForm() {
 
   let query = useParam();
   const searchKey = query.get("q");
+  const debouncedSearchKey = useDebounce(searchKey, 500);
 
   const {
     data: movieData,
@@ -25,14 +27,14 @@ export default function SearchForm() {
   } = useQuery(["searchData"], () => MovieSearchData(searchKey), {
     retry: 0,
   });
-
+  
   useEffect(() => {
-    if (searchKey !== "") {
+    if (debouncedSearchKey !== "") {
       refetch();
     } else {
       navigate("/browse");
     }
-  }, [searchKey]);
+  }, [debouncedSearchKey]);
 
   if (isLoading) return <Spinner />;
   if (isError) return <Empty>{error.message}</Empty>;
@@ -50,7 +52,7 @@ export default function SearchForm() {
       ) : (
         <Empty>
           <p>
-            {`입력하신 검색어 "${searchKey}"(와)과 일치하는 결과가 없습니다.`}
+            {`입력하신 검색어 "${debouncedSearchKey}"(와)과 일치하는 결과가 없습니다.`}
           </p>
           <p>추천 검색어:</p>
           <ul>
