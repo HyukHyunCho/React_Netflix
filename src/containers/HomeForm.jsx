@@ -4,7 +4,7 @@ import { useBannerMovieData, useMovieData } from "../hooks/useMovie";
 import Spinner from "../components/Spinner";
 import Banner from "../components/Banner";
 import Video from "../components/Video";
-import Modal from "../components/Modal";
+import Modal from "../components/Modal/movieModal";
 import Empty from "../components/Empty";
 import RowContainer from "./RowContainer";
 import { BannerContainer } from "../components/Row/styles";

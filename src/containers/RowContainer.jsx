@@ -72,7 +72,7 @@ export default function RowContainer({ id, title, fetchUrl, movieClick, isLankRo
     isError,
     error,
   } = useMovieData(id, fetchUrl);
-
+  
   if (isLoading) return <Spinner />;
   if (isError) return <Empty>{error.message}</Empty>;
 

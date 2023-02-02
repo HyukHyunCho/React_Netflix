@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import requests from "../services/requests";
 import styled from "styled-components";
-import Modal from "../components/Modal";
+import Modal from "../components/Modal/movieModal";
 import RowContainer from "./RowContainer";
 
 export default function GenreForm() {
