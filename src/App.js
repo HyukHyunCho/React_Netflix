@@ -8,7 +8,6 @@ import Profile from "./pages/Profile";
 import NavContainer from "./containers/NavContainer";
 import FooterContainer from "./containers/FooterContainer";
 import ProfileManageForm from "./containers/Profile/ProfileManageForm";
-import PublicRoute from "./lib/PublicRoute";
 import PrivateRoute from "./lib/PrivateRoute";
 
 const Layout = () => {

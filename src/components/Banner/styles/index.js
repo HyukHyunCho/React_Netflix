@@ -16,7 +16,7 @@ export const BannerContent = styled.div`
   height: 700px;
 `;
 export const BannerTitle = styled.div`
-  font-size: 3rem;
+  font-size: 4vw;
   font-weight: 800;
   color: #fff;
   padding-top: 170px;

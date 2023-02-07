@@ -16,7 +16,7 @@ import LoginCard from "../../components/LoginCard";
 export default function SigninContainer() {
   const navigate = useNavigate();
   const { handleSubmit, control } = useForm();
-  const { isLoading, isError, error, mutate } = useLogin();
+  const { isError, error, mutate } = useLogin();
   const [message, setMessage] = useState("");
   
   const onSubmit = formData => {
@@ -36,7 +36,6 @@ export default function SigninContainer() {
     );
   };
 
-  if (isLoading) return <Spinner />;
   if (isError) return <Empty>{error.message}</Empty>;
 
   return (

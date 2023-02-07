@@ -42,20 +42,32 @@ export const Title = styled.div`
   position: absolute;
   top: 290px;
   left: 50px;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: bold;
   color: #fff;
+  @media screen and (max-width: 860px) {
+    top: 160px;
+  }
+  @media screen and (max-width: 500px) {
+    top: 100px;
+  }
 `;
 export const PlayButton = styled.button`
   position: absolute;
-  top: 360px;
+  top: 350px;
   left: 50px;
   height: 6vh;
-  width: 120px;
+  width: 10vw;
   min-width: 90px;
   font-size: 18px;
   border: 1px solid #fff;
   border-radius: 5px;
+  @media screen and (max-width: 860px) {
+    top: 230px;
+  }
+  @media screen and (max-width: 500px) {
+    top: 140px;
+  }
 `;
 export const ModalContent = styled.div`
   padding: 40px;
