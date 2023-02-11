@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const baseInstance = axios.create({
-  baseURL: "https://mandarin.api.weniv.co.kr",
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 const authInstance = axios.create({
-  baseURL: "https://mandarin.api.weniv.co.kr",
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token_")}`,
     "Content-type": "application/json",
@@ -15,7 +15,7 @@ const authInstance = axios.create({
 const instance = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   params: {
-    api_key: "227d7e61d12a657bf0275f7ab2fc0d92",
+    api_key: process.env.REACT_APP_MOVIE_API_KEY,
     language: "ko-KR",
   },
 });
@@ -47,14 +47,7 @@ export const getUserInfo = async accountname => {
   return data;
 };
 
-export const MovieBannerData = async movieData => {
-  const movieId = movieData[Math.floor(Math.random() * movieData.length)].id;
-  const { data: movieDetail } = await instance.get(`movie/${movieId}`, {
-    params: { append_to_response: "videos" },
-  });
-  return movieDetail;
-};
- 
+
 export const MovieData = async fetchUrl => {
   const {
     data: { results },
@@ -69,4 +62,10 @@ export const MovieSearchData = async search => {
   return results;
 };
 
-
+export const MovieSelectData = async movieData => {
+  const movieId = movieData[Math.floor(Math.random() * movieData.length)].id;
+  const { data: movieDetail } = await instance.get(`movie/${movieId}`, {
+    params: { append_to_response: "videos" },
+  });
+  return movieDetail;
+};
