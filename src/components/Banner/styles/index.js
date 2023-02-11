@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 export const Headers = styled.header`
-  background: linear-gradient(
+  background-image: linear-gradient(
+      to top,
+      rgba(20, 20, 20, 0) 80%,
+      rgba(20, 20, 20, 1) 100%
+    ),
+    linear-gradient(
       to bottom,
       rgba(20, 20, 20, 0) 50%,
       rgba(20, 20, 20, 0.3) 70%,
