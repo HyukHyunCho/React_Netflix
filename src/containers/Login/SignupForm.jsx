@@ -24,8 +24,6 @@ export default function SignupForm() {
 
     uploadImage(formImg, {
       onSuccess: filename => {
-        console.log(filename);
-
         formData.image = filename;
         addUser(
           { user: formData },
