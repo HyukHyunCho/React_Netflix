@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import requests from "../services/requests";
-import { useBannerMovieData, useMovieData } from "../hooks/useMovie";
-import Spinner from "../components/Spinner";
-import Banner from "../components/Banner";
-import Video from "../components/Video";
-import Modal from "../components/Modal/movieModal";
-import Empty from "../components/Empty";
-import RowContainer from "./RowContainer";
-import { BannerContainer } from "../components/Row/styles";
+import requests from "../../services/requests";
+import { useBannerMovieData, useMovieData } from "../../hooks/useMovie";
+import Spinner from "../../components/Spinner";
+import Banner from "../../components/Banner";
+import Video from "../../components/Video";
+import Modal from "../../components/Modal/movieModal";
+import { BannerContainer } from "../../components/Row/styles";
+import Empty from "../../components/Empty";
+import RowContainer from "../Row/RowContainer";
 
 export default function HomeForm() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function HomeForm() {
   if (isLoadingMovie || isLoadingDetail) return <Spinner />;
   if (isErrorMovie) return <Empty>{errorMovie.message}</Empty>;
   if (isErrorBannerMovie) return <Empty>{errorDetail.message}</Empty>;
-  
+
   return (
     <BannerContainer>
       {isClicked === false ? (
