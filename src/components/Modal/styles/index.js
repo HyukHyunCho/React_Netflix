@@ -39,18 +39,10 @@ export const Image = styled.img`
   height: auto;
 `;
 export const Title = styled.div`
-  position: absolute;
-  top: 290px;
-  left: 50px;
+  padding-bottom: 10px;
   font-size: 30px;
   font-weight: bold;
   color: #fff;
-  @media screen and (max-width: 860px) {
-    top: 160px;
-  }
-  @media screen and (max-width: 500px) {
-    top: 100px;
-  }
 `;
 export const PlayButton = styled.button`
   position: absolute;
@@ -70,7 +62,7 @@ export const PlayButton = styled.button`
   }
 `;
 export const ModalContent = styled.div`
-  padding: 40px;
+  padding: 20px;
   color: white;
 `;
 export const Detail = styled.div`
@@ -84,7 +76,7 @@ export const PersentText = styled.div`
 `;
 export const NomalText = styled.div`
   font-weight: bold;
-  margin-left: 10px;
+  margin-left: 20px;
 `;
 export const OverviewText = styled.div`
   font-weight: bold;

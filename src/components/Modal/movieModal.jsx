@@ -4,10 +4,8 @@ import {
   ModalWrapper,
   Modal,
   ModalClose,
- 
   Image,
   Title,
-  PlayButton,
   ModalContent,
   Detail,
   PersentText,
@@ -18,36 +16,35 @@ import {
 export default function MovieModal({
   backdrop_path,
   title,
+  original_title,
   overview,
   name,
   release_date,
   first_air_date,
   vote_average,
+  vote_count,
   setModalOpen,
-  setIsClicked,
 }) {
+  console.log(title)
   return (
     <ModalContainer>
       <ModalWrapper>
         <Modal color="#111">
           <ModalClose onClick={() => setModalOpen(false)}>X</ModalClose>
-
-         
-            <Image
-              src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
-              alt="image"
-            />
-            <Title>{title ? title : name}</Title>
-            <PlayButton onClick={() => setIsClicked(true)}>▶ 재생</PlayButton>
-         
-
+          <Image
+            src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
+            alt="image"
+          />
           <ModalContent>
+            <Title>{title ? title : name}</Title>
+            <Title>{original_title}</Title>
             <Detail>
               <PersentText>98% 일치</PersentText>
               <NomalText>
-                {release_date ? release_date : first_air_date}
+                개봉: {release_date ? release_date : first_air_date}
               </NomalText>
               <NomalText>평점 : {vote_average}</NomalText>
+              <NomalText>👍{vote_count}</NomalText>
             </Detail>
             <OverviewText>{overview}</OverviewText>
           </ModalContent>
