@@ -1,17 +1,21 @@
-import { useQuery } from "@tanstack/react-query"
-import { MovieBannerData, MovieData } from "../services/axios";
+import { useQuery } from "@tanstack/react-query";
+import {
+  MovieSelectData,
+  MovieData,
+  MovieSearchData,
+} from "../services/axios";
+
+export const useMovieData = (id, fetchUrl) => {
+  return useQuery(["movieData", id], () => MovieData(fetchUrl));
+};
+
+export const useSearchData = searchKey => {
+  return useQuery(["searchData"], () => MovieSearchData(searchKey));
+};
 
 export const useBannerMovieData = movieData => {
-  return useQuery(["MovieDataDetail"], () => MovieBannerData(movieData), {
+  return useQuery(["MovieDataDetail"], () => MovieSelectData(movieData), {
     enabled: !!movieData,
     retry: 0,
   });
 };
-
-export const useMovieData = (id, fetchUrl) => {
-  return useQuery(["movieData", id], () => MovieData(fetchUrl), {
-    retry: 0,
-  });
-};
-
-
