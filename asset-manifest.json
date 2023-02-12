@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/React_Netflix/static/css/main.bc851329.css",
+    "main.js": "/React_Netflix/static/js/main.b37af2dc.js",
+    "static/js/787.20e5b628.chunk.js": "/React_Netflix/static/js/787.20e5b628.chunk.js",
+    "static/media/number_8.svg": "/React_Netflix/static/media/number_8.b001a467ee339f896d14ea8492e74598.svg",
+    "static/media/number_9.svg": "/React_Netflix/static/media/number_9.b5dfe7f1b1eff80e8831784e2662cfc8.svg",
+    "static/media/number_6.svg": "/React_Netflix/static/media/number_6.2dd650cab9bf2d12faab0388c0cc8c0c.svg",
+    "static/media/number_3.svg": "/React_Netflix/static/media/number_3.318d4e275a468148e5053662961a13e1.svg",
+    "static/media/number_2.svg": "/React_Netflix/static/media/number_2.b2bb3947622efc476d73bc5ce63329dc.svg",
+    "static/media/number_5.svg": "/React_Netflix/static/media/number_5.f1d895f9bdf09367403b4128b374b6fd.svg",
+    "static/media/number_4.svg": "/React_Netflix/static/media/number_4.bff5e37e5f65ea6545f46aa558f3f84c.svg",
+    "static/media/number_7.svg": "/React_Netflix/static/media/number_7.b6337e8e308bc6d5d11817855a50a7ad.svg",
+    "static/media/user.svg": "/React_Netflix/static/media/user.63d75c5b7ba874705d919175d1b8d2fa.svg",
+    "static/media/number_1.svg": "/React_Netflix/static/media/number_1.87c69c8bc1fb8361966ea5c710abfe95.svg",
+    "static/media/revicons.eot": "/React_Netflix/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/React_Netflix/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/React_Netflix/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/React_Netflix/index.html",
+    "main.bc851329.css.map": "/React_Netflix/static/css/main.bc851329.css.map",
+    "main.b37af2dc.js.map": "/React_Netflix/static/js/main.b37af2dc.js.map",
+    "787.20e5b628.chunk.js.map": "/React_Netflix/static/js/787.20e5b628.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bc851329.css",
+    "static/js/main.b37af2dc.js"
+  ]
+}
