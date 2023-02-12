@@ -63,12 +63,12 @@ export default function HomeForm() {
         fetchUrl={requests.fetchNetflixOriginals}
         movieClick={movieClick}
       />
-      {/* <Row
+      <RowContainer
         id="3"
         title="지금 뜨는 콘텐츠"
         fetchUrl={requests.fetchTrending}
         movieClick={movieClick}
-      /> */}
+      />
       {modalOpen && (
         <Modal
           {...movieSelected}

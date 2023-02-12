@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <QueryClientProvider client={queryClient}>
     {/* <ReactQueryDevtools initialIsOpen={false}> */}
-    <BrowserRouter basename='React_Netflix'>
+    <BrowserRouter>
       <App />
     </BrowserRouter>
     {/* </ReactQueryDevtools> */}

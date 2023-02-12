@@ -4,7 +4,7 @@ export const Layout = styled.div`
   position: relative;
   top: -120px;
   width: 100%;
-  padding: 2.5rem;
+  
   box-sizing: border-box;
 `;
 export const BannerContainer = styled.div`
