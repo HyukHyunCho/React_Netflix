@@ -25,7 +25,6 @@ export default function MovieModal({
   vote_count,
   setModalOpen,
 }) {
-  console.log(title)
   return (
     <ModalContainer>
       <ModalWrapper>
