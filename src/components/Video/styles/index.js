@@ -7,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100vh;
+  background-color: #000;
 `;
 export const HomeContainer = styled.div`
   width: 100%;
@@ -17,6 +18,7 @@ export const Iframe = styled.iframe`
   height: 100%;
   z-index: -1;
   border: none;
+  margin-top: 50px;
   &::after {
     content: "";
     position: absolute;
