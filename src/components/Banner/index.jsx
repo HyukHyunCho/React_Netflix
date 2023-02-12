@@ -8,7 +8,7 @@ import {
   Button,
 } from "./styles";
 
-export default function Banner({ movie, movieClick, setIsClicked }) {
+export default function Banner({ movie, movieClick, moviePlayClick }) {
   return (
     <Headers path={movie.backdrop_path}>
       <BannerContent>
@@ -20,7 +20,7 @@ export default function Banner({ movie, movieClick, setIsClicked }) {
           <Button
             color="black"
             background="white"
-            onClick={() => setIsClicked(true)}
+            onClick={() => moviePlayClick("/browse/video", { state: movie })}
           >
             ▶ 재생
           </Button>
