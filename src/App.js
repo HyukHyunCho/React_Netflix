@@ -5,9 +5,10 @@ import Home from "./pages/Home";
 import Genre from "./pages/Genre";
 import Search from "./pages/Search";
 import Profile from "./pages/Profile";
-import NavContainer from "./containers/NavContainer";
-import FooterContainer from "./containers/FooterContainer";
-import ProfileManageForm from "./containers/Profile/ProfileManageForm";
+import Video from "./pages/Video";
+import NavContainer from "./containers/common/NavContainer";
+import FooterContainer from "./containers/common/FooterContainer";
+import ProfileManageForm from "./containers/ProfileForm/ProfileManageForm";
 import PrivateRoute from "./lib/PrivateRoute";
 
 const Layout = () => {
@@ -32,6 +33,7 @@ function App() {
           element={<PrivateRoute restricted={true} component={<Layout />} />}
         >
           <Route index element={<Home />} />
+          <Route path="video" element={<Video />} />
           <Route path="genre" element={<Genre />} />
           <Route path="search" element={<Search />} />
         </Route>
